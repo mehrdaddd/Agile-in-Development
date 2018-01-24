@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- start container for body -->
+<div class="container">
+    <!-- dividing div for the form to choose date and other fields for hotel reservation -->
+    <div class="panel-group" style="width: 20%;min-width: 200px;">
+        <div class="panel panel-default">
+            <div class="panel-heading">Book Hotel</div>
+            <div class="panel-body">
+                <form action="newBooking" method="post">
+                    <div class="form-group">
+                        <label>Arrival Date:</label>
+                        <!--user should choose the date from datepicker -->
+                        <input class="dateFrom form-control" type="text" id="datepicker" readonly="true">
+                    </div>
+                    <div class="form-group">
+                        <label>How many adults?</label>
+                        <select class="form-control" id="adults">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nights:</label>
+                        <select class="form-control" id="nights">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </div>
+                    <input id="myButton" type="submit" class="float-left submit-button btn btn-primary" value="Search" />
+                </form>
+                <input type="hidden" class="input">
+            </div>
+        </div>
+    </div>
+    <!-- end div of form -->
+
+    <!-- start of iframe to show the results-->
+    <iframe src="" id="results-iframe" frameborder="0" height="450" width="900" style="width:100%;"></iframe>
+    <!-- end of iframe-->
+</div>
+<!-- loading some needed js files -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- starting js code to pick the date -->
+<script>
+    $( function() {
+        $( "#datepicker" ).datepicker();
+    } );
+</script>
+<!-- end of datepicker -->
+<!-- starting javascript function to pass the value to the hotel API -->
+<script type="application/javascript">
+    $("#myButton").click(function () {
+        var selNights = $("#nights").val();
+        var selAdultsSearchLine1 = $("#adults").val();
+        var selArrivalDate = $.datepicker.formatDate;
+        var dateTime = new Date($("#datepicker").datepicker("getDate"));
+        var strDateTime =  dateTime.getDate() + "/" + (dateTime.getMonth()+1) + "/" + dateTime.getFullYear();
+        var day = dateTime.getDate();
+        var month = dateTime.getMonth()+1;
+        var year = dateTime.getFullYear();
+        var resultsUrl = "https://web4.deskline.net/kiel4/en/accommodation/qfind?selNights=" + selNights +  "&selArrivalDate="+year+""+month+""+day+"&selAdultsSearchLine1=" + selAdultsSearchLine1 + "&selNumberOfUnits=1&customHeader=false&customFooter=false"
+        $('#results-iframe').prop('src', resultsUrl);
+        return false;
+    });
+    //end of parameter passing function
+
+    //initializing function to set minimum date to today, user can't select yesterday
+    $(document).ready(function() {
+        $("#datepicker").datepicker("setDate", new Date());
+    });
+    $("input.dateFrom").datepicker({
+        minDate:0
+    });
+    //end of setting date minimum to today
+</script>

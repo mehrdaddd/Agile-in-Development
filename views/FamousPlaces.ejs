@@ -1,0 +1,41 @@
+<!-- Button to send the details-->
+<div align="center">
+
+    <H1>The Famous Places In Kiel</H1>
+</div>
+<!-- div to display the content of the database-->
+<div class = "cont">
+
+<div class = "">
+
+
+    <% for(var i=0; i<data.length; i++) { %>
+
+    <div class = "row">
+
+        <div class = "col-md-5">
+            <img src="/images/famous_places/<%= data[i].ImageUrl%>" style="max-width: 100%;">
+
+        </div>
+        <div class = "col-md-6">
+
+            Name: <%= data[i].Name %>
+            <br/>
+            Address: <%= data[i].Address %>
+            <br/>
+            Type of Attraction: <%=data[i].Type%>
+            <br/>
+            Location: <%=data[i].Location %>
+            <br/>
+            Description: <%=data[i].Description%>
+            <br/>
+            <a href="/places/<%=data[i].page_name%>">More Details</a>
+            <!--<a href="/places/first"> First</a>-->
+        </div>
+
+    </div>
+    <br />
+    <% } %>
+</div>
+</div>
+

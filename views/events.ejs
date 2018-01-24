@@ -1,0 +1,35 @@
+<!-- Heading-->
+<div align="center">
+    <H1>The Famous Events In Kiel</H1>
+</div>
+<!-- places to display the databse table in the view-->
+<div class = "">
+
+    <% for(var i=0; i<data.length; i++) { %>
+
+
+    <div class = "row">
+
+        <div class = "col-md-5">
+
+            <img src="/images/events/<%= data[i].ImageName%>" style="max-width: 100%;">
+
+        </div>
+
+        <div class = "col-md-6">
+
+            Name: <%= data[i].Name %>
+            <br>
+            Location: <%= data[i].Location %>
+            <br>
+            Dates & Time: <%=data[i].Dates%>
+            <br>
+            Description: <%=data[i].Description %>
+            <br />
+            <a href="/events/<%=data[i].page_name%>">More Details</a>
+        </div>
+
+    </div>
+    <br />
+    <% } %>
+</div>
